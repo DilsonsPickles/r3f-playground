@@ -1,12 +1,20 @@
 "use client";
 import { useRef } from "react";
-import { Tile, cartesianToIsometric } from "@/app/utils/isometricUtils";
+import useGameStore from "../../store/useGameStore";
 
 interface GridTileProps {
-  tile: Tile;
+  tile: {
+    id: string;
+    position: [number, number];
+    type: string;
+    properties: {
+      buildable: boolean;
+      walkable: boolean;
+      resource?: string;
+    };
+  };
   isHovered: boolean;
   isSelected: boolean;
-  onTileClick: (tileId: string) => void;
 }
 
 // Individual grid tile component
@@ -14,8 +22,8 @@ export function GridTile({
   tile,
   isHovered,
   isSelected,
-  onTileClick,
 }: GridTileProps) {
+  const { selectTile } = useGameStore();
   // Get reference to meshes for animation
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -92,7 +100,7 @@ export function GridTile({
         ref={meshRef}
         position={[0, height / 2, 0]}
         rotation={[-Math.PI / 2, 0, 0]}
-        onClick={() => onTileClick(tile.id)}
+        onClick={() => selectTile(tile.id)}
         userData={{ tileId: tile.id }}
       >
         <planeGeometry args={[0.95, 0.95]} />
@@ -108,4 +116,13 @@ export function GridTile({
       <ResourceIndicator />
     </group>
   );
+}
+
+// Helper to convert grid coordinates to isometric view coordinates
+function cartesianToIsometric(x: number, z: number): [number, number] {
+  const ISOMETRIC_ANGLE = Math.PI / 4; // 45 degrees in radians
+  return [
+    (x - z) * Math.cos(ISOMETRIC_ANGLE),
+    (x + z) * Math.sin(ISOMETRIC_ANGLE)
+  ];
 }

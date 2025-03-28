@@ -1,4 +1,3 @@
-// src/app/components/grid/IsometricGrid.tsx
 "use client";
 import { useEffect } from "react";
 import { ThreeEvent } from "@react-three/fiber";

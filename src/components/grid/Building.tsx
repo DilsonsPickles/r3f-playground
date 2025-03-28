@@ -1,9 +1,13 @@
-// src/app/components/grid/Building.tsx
 "use client";
-import { Building as BuildingType, cartesianToIsometric } from "@/app/utils/isometricUtils";
 
 interface BuildingProps {
-  building: BuildingType;
+  building: {
+    id: string;
+    type: string;
+    tileId: string;
+    health: number;
+    properties: any;
+  };
   position: [number, number];
 }
 
@@ -67,4 +71,13 @@ export function Building({ building, position }: BuildingProps) {
       <BuildingModel />
     </group>
   );
+}
+
+// Helper to convert grid coordinates to isometric view coordinates
+function cartesianToIsometric(x: number, z: number): [number, number] {
+  const ISOMETRIC_ANGLE = Math.PI / 4; // 45 degrees in radians
+  return [
+    (x - z) * Math.cos(ISOMETRIC_ANGLE),
+    (x + z) * Math.sin(ISOMETRIC_ANGLE)
+  ];
 }
