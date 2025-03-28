@@ -1,6 +1,6 @@
 // src/app/components/ui/GameControlUI.tsx
 "use client";
-import useGameStore from "../../store/useGameStore";
+import useGameStore from "../../store";
 
 export function GameControlUI() {
   const { 

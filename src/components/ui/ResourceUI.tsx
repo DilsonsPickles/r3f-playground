@@ -1,6 +1,6 @@
 // src/app/components/ui/ResourceUI.tsx
 "use client";
-import useGameStore from "../../store/useGameStore";
+import useGameStore from "../../store";
 
 // Resource display UI component
 export function ResourceUI() {

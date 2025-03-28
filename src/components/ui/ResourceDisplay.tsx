@@ -1,7 +1,7 @@
 // src/app/components/ui/ResourceDisplay.tsx
 "use client";
 import { Text } from "@react-three/drei";
-import useGameStore from "../../store/useGameStore";
+import useGameStore from "../../store";
 
 // Resource display component in 3D space
 export function ResourceDisplay() {

@@ -14,7 +14,7 @@ interface BuildingProps {
 // Building visualization component
 export function Building({ building, position }: BuildingProps) {
   const buildingType = building.type;
-  const [isoX, isoZ] = cartesianToIsometric(position[0], position[1]);
+  const [x, z] = position;
   
   // Different 3D models based on building type
   const BuildingModel = () => {
@@ -67,17 +67,8 @@ export function Building({ building, position }: BuildingProps) {
   };
   
   return (
-    <group position={[isoX, 0, isoZ]}>
+    <group position={[x, 0, z]}>
       <BuildingModel />
     </group>
   );
-}
-
-// Helper to convert grid coordinates to isometric view coordinates
-function cartesianToIsometric(x: number, z: number): [number, number] {
-  const ISOMETRIC_ANGLE = Math.PI / 4; // 45 degrees in radians
-  return [
-    (x - z) * Math.cos(ISOMETRIC_ANGLE),
-    (x + z) * Math.sin(ISOMETRIC_ANGLE)
-  ];
 }
